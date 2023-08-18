@@ -1,9 +1,14 @@
 from django.db import models
 from django.utils import timezone
-# Create your models here.
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
+
+    class Meta:
+        verbose_name = 'Categoria'
+        verbose_name_plural = 'Categorias'
+
     name = models.CharField(max_length=50)
 
     def __str__(self) -> str:
@@ -11,6 +16,11 @@ class Category(models.Model):
 
 
 class Contact(models.Model):
+
+    class Meta:
+        verbose_name = 'Contato'
+        verbose_name_plural = 'Contatos'
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
@@ -23,6 +33,11 @@ class Contact(models.Model):
                                  on_delete=models.SET_NULL,
                                  blank=True,
                                  null=True)
+
+    owner = models.ForeignKey(User,
+                              on_delete=models.SET_NULL,
+                              blank=True,
+                              null=True)
 
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
